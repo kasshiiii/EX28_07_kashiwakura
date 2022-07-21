@@ -4,8 +4,19 @@ public class TriangularPrismCustom
 {
     static void Main()
     {
+        TriangularPrism triangularPrism = new TriangularPrism(0,0,0);
         Console.WriteLine("三角柱");
-        TriangularPrism triangularPrism = new TriangularPrism(InputFloat("底面の底辺を入力して下さい"), InputFloat("底面の高さを入力して下さい"), InputFloat("高さを入力して下さい"));
+        Console.WriteLine("計算方法を選んでください\n1.3辺と高さ\n2.底面の底辺と底面の高さと全体の高さ(1～2)");
+        switch(InputInt(1, 2))
+        {
+            case 1:
+                triangularPrism = new TriangularPrism(InputFloat("一辺の長さ(a)を入力してください"), InputFloat("一辺の長さ(b)を入力してください"), InputFloat("一辺の長さ(c)を入力してください"),InputFloat("高さを入力して下さい"));
+                break;
+            case 2:
+                triangularPrism = new TriangularPrism(InputFloat("底面の底辺を入力して下さい"), InputFloat("底面の高さを入力して下さい"), InputFloat("高さを入力して下さい"));
+                break;
+
+        }
         Console.WriteLine("表面積 = " + triangularPrism.GetSurface());
         Console.WriteLine("体積 = " + triangularPrism.GetVolume());
 
@@ -18,6 +29,17 @@ public class TriangularPrismCustom
         {
             Console.WriteLine(outputString);
             if (float.TryParse(Console.ReadLine(), out input))
+            {
+                return input;
+            }
+        }
+    }
+    static int InputInt(int min,int max)
+    {
+        int input;
+        while (true)
+        {
+            if (int.TryParse(Console.ReadLine(), out input))
             {
                 return input;
             }
@@ -42,8 +64,8 @@ class TriangularPrism
         this.bottom2 = bottom2;
         this.bottom3 = bottom3;
         this.height = height;
-        //float temp1 = 
-        //bottom = 
+        float temp = (bottom1 + bottom2 + bottom3) / 2.0f;//ヘロンの公式(s)
+        bottom = (float)Math.Sqrt(temp * (temp - bottom1) * (temp - bottom2) * (temp - bottom3)); 
         side = (bottom1 + bottom2 + bottom3) * height;
     }
     public double GetSurface()
