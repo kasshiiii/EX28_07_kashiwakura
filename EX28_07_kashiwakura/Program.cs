@@ -19,7 +19,6 @@ public class TriangularPrismCustom
         }
         Console.WriteLine("表面積 = " + triangularPrism.GetSurface());
         Console.WriteLine("体積 = " + triangularPrism.GetVolume());
-
     }
 
     static float InputFloat(string outputString)
@@ -41,7 +40,10 @@ public class TriangularPrismCustom
         {
             if (int.TryParse(Console.ReadLine(), out input))
             {
-                return input;
+                if (input >= min && input <= max)
+                {
+                    return input;
+                }
             }
         }
     }
